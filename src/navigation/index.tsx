@@ -132,10 +132,10 @@ export default function Navigation({
       <Animated.View
         style={{
           position: "absolute",
-          height: 44,
+          height: 22,
           borderRadius: 32,
-          borderColor: "activeTabLine",
-          backgroundColor: "#f0700020",
+
+          backgroundColor: "#FFBF0040",
           bottom: 48 - 36 + 8,
           width: 60,
           zIndex: 0,

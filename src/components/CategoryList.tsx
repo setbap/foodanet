@@ -11,7 +11,6 @@ import {
 import { Box, Text } from "@my-style/index";
 import { Categories } from "@my-types/index";
 import { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import {
   ALL_CATEGORY,
