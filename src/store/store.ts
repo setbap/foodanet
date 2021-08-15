@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import filterReducer from "./filter.reducer";
 import sortReducer from "./sort.reducer";
+import categoryReducer from "./category.reducer";
 
 const store = configureStore({
   reducer: {
     filterReducer,
     sortReducer,
+    categoryReducer,
   },
 });
 

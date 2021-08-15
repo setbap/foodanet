@@ -1,8 +1,10 @@
-import { FilterStatus, SortStatus } from "@myutils/repo";
+import { SortStatus } from "@myutils/repo";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
-const initialState = { status: SortStatus.rating };
+const initialState: {
+  status: SortStatus | null;
+} = { status: null };
 
 export const sortStatusSlice = createSlice({
   name: "sort",

@@ -28,6 +28,7 @@ export const theme = createTheme({
     textColor: palette.black,
     textComment: palette.gray,
     discount: palette.pink,
+    greenDark: palette.greenDark,
   },
   spacing: {
     xs: 4,

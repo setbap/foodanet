@@ -26,7 +26,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function TabTwoScreen() {
+export function CategoryList() {
   const dispatch = useAppDispatch();
   const { categories, selectedCategory } = useAppSelector(
     selectCategoryReducer

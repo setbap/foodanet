@@ -1,16 +1,20 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
-import { Box, Text } from "@my-style/index";
+import { Box } from "@my-style/index";
 import { getRestaurants } from "@myutils/repo";
 import { RestaurantCard } from "@my-components/index";
 import { useRatingBottomSheet } from "@my-components/SortingBottomSheet";
-import { RectButton } from "react-native-gesture-handler";
+
 import { useFilterBottomSheet } from "@my-components/FilterBottomSheet";
 import { selectAllFilterStatus } from "store/filter.reducer";
 import { selectSortStatus } from "store/sort.reducer";
 import { useAppSelector } from "store/hooks";
 import { useEffect } from "react";
 import { Restaurants } from "@my-types/index";
+import { useCategoryBottomSheet } from "@my-components/CategoryBottomSheet";
+import { selectSelectedcategory } from "store/category.reducer";
+import ChipsRow from "@my-components/ChipsRow";
+import RestaurantsSortAndNumberRow from "@my-components/RestaurantsSortAndNumberRow";
 
 export default function HomeScreen() {
   const {
@@ -21,46 +25,41 @@ export default function HomeScreen() {
     SortingBottomSheet: FilterSortingBottomSheet,
     handlePresentModalPress: filterHandlePresentModalPress,
   } = useRef(useFilterBottomSheet()).current;
+  const {
+    CategoryBottomSheet,
+    handlePresentModalPress: categoryHandlePresentModalPress,
+  } = useRef(useCategoryBottomSheet()).current;
   const sortValue = useAppSelector(selectSortStatus);
   const allFilterValue = useAppSelector(selectAllFilterStatus);
+  const selectedcategory = useAppSelector(selectSelectedcategory);
   const [restaurants, setRestaurants] = useState<Restaurants[]>([]);
 
   useEffect(() => {
     setRestaurants(
-      getRestaurants({ filterStatus: allFilterValue, sortingStatus: sortValue })
+      getRestaurants({
+        filterStatus: allFilterValue,
+        sortingStatus: sortValue,
+        categoryValue: selectedcategory?.value,
+      })
     );
     return () => {};
-  }, [sortValue, allFilterValue]);
-
-  console.log("whatttt");
+  }, [sortValue, allFilterValue, selectedcategory]);
 
   return (
     <Box flex={1}>
+      <ChipsRow
+        openCategoryFn={categoryHandlePresentModalPress}
+        openFilterFn={filterHandlePresentModalPress}
+      />
+      <RestaurantsSortAndNumberRow
+        count={restaurants.length}
+        sortOpenFn={ratingHandlePresentModalPress}
+      />
       <RatingSortingBottomSheet />
       <FilterSortingBottomSheet />
-      <Box height={60}>
-        <RectButton
-          onPress={() => {
-            ratingHandlePresentModalPress();
-          }}
-        >
-          <Text>ads</Text>
-        </RectButton>
-      </Box>
-      <Box height={60}>
-        <RectButton
-          onPress={() => {
-            filterHandlePresentModalPress();
-          }}
-        >
-          <Text>aaaaaadddaaaaa</Text>
-        </RectButton>
-      </Box>
+      <CategoryBottomSheet />
       <FlatList
-        data={getRestaurants({
-          sortingStatus: sortValue,
-          filterStatus: allFilterValue,
-        })}
+        data={restaurants}
         keyExtractor={(item) => item.id + ""}
         renderItem={(item) => <RestaurantCard data={item.item} />}
       />

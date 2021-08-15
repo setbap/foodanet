@@ -7,6 +7,30 @@ export enum SortStatus {
   rating,
 }
 
+export const repoKeyToPresian = (key: keyof FilterStatus) => {
+  switch (key) {
+    case "hasCoupen":
+      return "دارای کوپن";
+
+    case "hasDiscountValueForView":
+      return "دارای تخفیف";
+
+    case "isExpress":
+      return "اسنپ اکسپرس";
+
+    case "isDeliveryFree":
+      return "ارسال رایگان";
+
+    case "isEconomical":
+      return "رستوران به صرفه";
+
+      break;
+
+    default:
+      break;
+  }
+};
+
 export type FilterStatus = {
   hasCoupen: boolean;
   hasDiscountValueForView: boolean;
@@ -18,20 +42,23 @@ export type FilterStatus = {
 export const getRestaurants = ({
   sortingStatus = SortStatus.name,
   filterStatus,
+  categoryValue,
 }: {
   sortingStatus: SortStatus;
   filterStatus: FilterStatus;
+  categoryValue: number;
 }): Restaurants[] => {
   let restaurants = restaurantsJson as unknown as Restaurants[];
   if (sortingStatus === SortStatus.rating) {
     restaurants = restaurants.sort((a, b) => b.rating - a.rating);
-  } else {
+  } else if (sortingStatus === SortStatus.name) {
     restaurants = restaurants.sort((a, b) => a.title.localeCompare(b.title));
   }
   restaurants = restaurants.filter((restaurant) => {
+    if (categoryValue > 0 && restaurant.category != categoryValue) {
+      return false;
+    }
     if (filterStatus.isDeliveryFree && restaurant.delivery_fee > 0) {
-      console.log(restaurant.delivery_fee);
-
       return false;
     }
     if (filterStatus.hasCoupen && !restaurant.hasCoupon) {
