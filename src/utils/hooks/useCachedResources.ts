@@ -14,6 +14,7 @@ export function useCachedResources(): boolean {
         await Font.loadAsync({
           ...Ionicons.font,
           vazir: require("../../../assets/fonts/vazir_regular.ttf"),
+          vazir_bold: require("../../../assets/fonts/vazir_bold.ttf"),
         });
       } catch (e) {
         console.warn(e);

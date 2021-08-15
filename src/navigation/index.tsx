@@ -7,7 +7,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ColorSchemeName } from "react-native";
 import { RootStackParamList } from "@my-types/index";
 
-import LinkingConfiguration from "./LinkingConfiguration";
 import { useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
@@ -27,7 +26,7 @@ function TabBarIcon(props: {
   color: string;
 }) {
   return (
-    <Ionicons size={30} style={{ marginBottom: -3, zIndex: 100 }} {...props} />
+    <Ionicons size={30} style={{ marginBottom: -3, zIndex: 1 }} {...props} />
   );
 }
 const HomeTabStack = createStackNavigator<HomeTabParamList>();
@@ -38,7 +37,12 @@ function HomeTabNavigator() {
       <HomeTabStack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerTitle: "غذا ها" }}
+        options={{
+          headerTitle: "رستوران ها",
+          headerTitleStyle: {
+            fontFamily: "vazir_bold",
+          },
+        }}
       />
     </HomeTabStack.Navigator>
   );
@@ -52,7 +56,12 @@ function AboutTabNavigator() {
       <AboutTabStack.Screen
         name="AboutTabScreen"
         component={AboutScreen}
-        options={{ headerTitle: "درباره پروژه" }}
+        options={{
+          headerTitle: "درباره پروژه",
+          headerTitleStyle: {
+            fontFamily: "vazir_bold",
+          },
+        }}
       />
     </AboutTabStack.Navigator>
   );
@@ -66,7 +75,6 @@ export default function Navigation({
   const selectedTabIndex = useRef(new Animated.Value(0)).current;
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
       <BottomTab.Navigator
@@ -130,7 +138,7 @@ export default function Navigation({
           backgroundColor: "#f0700020",
           bottom: 48 - 36 + 8,
           width: 60,
-          zIndex: 1,
+          zIndex: 0,
           end: Dimensions.get("screen").width / 2 + 10,
           transform: [
             {

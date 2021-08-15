@@ -1,13 +1,20 @@
 import React from "react";
-import { Dimensions, ScrollView } from "react-native";
+import { Dimensions, Platform, ScrollView, UIManager } from "react-native";
 import { useAppSelector } from "store/hooks";
 import SelectedChips from "./selectedChips";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { repoKeyToPresian } from "@myutils/repo";
-import { Box } from "@my-style/Box";
+import { Box } from "@my-style/index";
 import { changeFilterItem, selectAllFilterStatus } from "store/filter.reducer";
 import { selectSelectedcategory } from "store/category.reducer";
 import { useAppDispatch } from "store/store";
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 interface Props {
   openFilterFn: VoidFunction;
@@ -21,9 +28,22 @@ export const ChipsRow = ({ openCategoryFn, openFilterFn }: Props) => {
 
   return (
     <Box width={Dimensions.get("window").width} height={32} my="s">
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={{
+          minWidth: Dimensions.get("window").width,
+        }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        <Box width={16} />
         <SelectedChips
-          title={categoryStatus.value > 0 ? categoryStatus.title : "دسته ها"}
+          title={
+            categoryStatus.value <= 0
+              ? "همه دسته ها "
+              : categoryStatus.sub
+              ? `همه ${categoryStatus.title} ها`
+              : categoryStatus.title
+          }
           onPress={() => {
             openCategoryFn();
           }}
@@ -46,6 +66,8 @@ export const ChipsRow = ({ openCategoryFn, openFilterFn }: Props) => {
                 key={item}
                 // @ts-ignore
                 title={repoKeyToPresian(item)}
+                isFill={true}
+                icon={<AntDesign name="closecircleo" size={16} color="white" />}
                 onPress={() => {
                   // @ts-ignore
                   dispatch(changeFilterItem(item));
@@ -53,7 +75,7 @@ export const ChipsRow = ({ openCategoryFn, openFilterFn }: Props) => {
               />
             );
           })}
-        <Box width={8} />
+        <Box width={16} />
       </ScrollView>
     </Box>
   );

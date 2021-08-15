@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@my-style/Box";
 import { Text } from "@my-style/Text";
-import { TouchableHighlight } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { selectSortStatus } from "store/sort.reducer";
 import { useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const RestaurantsSortAndNumberRow = ({ count, sortOpenFn }: Props) => {
       alignItems="center"
     >
       <Text variant="subheader2">{`${count} رستوران`} </Text>
-      <TouchableHighlight onPress={sortOpenFn}>
+      <TouchableOpacity onPress={sortOpenFn}>
         <Box flexDirection="row">
           <FontAwesome5 name="sort-amount-up-alt" size={16} color="green" />
           <Box mr="xs" />
@@ -41,7 +41,7 @@ const RestaurantsSortAndNumberRow = ({ count, sortOpenFn }: Props) => {
             {title}{" "}
           </Text>
         </Box>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </Box>
   );
 };

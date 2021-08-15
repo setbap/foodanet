@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import {
   LayoutAnimation,
   Platform,
@@ -118,8 +118,12 @@ const CategoryItem: FC<{
         width={Dimensions.get("window").width}
       >
         {isHeader ? (
-          <Box height={32} width={32}>
-            <MaterialIcons size={20} name="category" />
+          <Box height={32} mt="s" ps="xs" width={32}>
+            <Ionicons
+              style={{ marginRight: 2 }}
+              name="md-grid-outline"
+              size={24}
+            />
           </Box>
         ) : (
           <Image
@@ -130,9 +134,9 @@ const CategoryItem: FC<{
             source={{ uri: item.image }}
           />
         )}
-        <Box mx="xs" />
+        <Box mx="xs" mt="xs" />
         <Text variant="body" color={isSelected ? "activeTabLine" : "textColor"}>
-          {isHeader ? `همه ${item.title}` : item.title}
+          {isHeader ? `همه ${item.title} ها` : item.title}
         </Text>
 
         {(isHeader || !item.sub?.length) && (

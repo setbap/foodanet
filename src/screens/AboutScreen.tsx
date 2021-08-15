@@ -1,168 +1,43 @@
-import React, { FC } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import {
-  LayoutAnimation,
-  Platform,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-  UIManager,
-} from "react-native";
-import { Box, Text } from "@my-style/index";
-import { Categories } from "@my-types/index";
-import { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useAppDispatch, useAppSelector } from "store/hooks";
-import {
-  ALL_CATEGORY,
-  selectCategory,
-  selectCategoryReducer,
-} from "store/category.reducer";
+import React from "react";
+import { Box } from "@my-style/Box";
+import { Dimensions, Image } from "react-native";
+import { Text } from "@my-style/Text";
 
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
-
-export default function TabTwoScreen() {
-  const dispatch = useAppDispatch();
-  const { categories, selectedCategory } = useAppSelector(
-    selectCategoryReducer
-  );
-  const [openCategory, setOpenCategory] = useState<Categories | null>(null);
-
-  const setSelectedCategory = (item: Categories) => {
-    dispatch(selectCategory(item));
-  };
-
-  const onParentItemSelect = (item: Categories) => {
-    if (item.sub != null) {
-      if (item.value === openCategory?.value) {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setOpenCategory(null);
-      } else {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setOpenCategory(item);
-      }
-    } else {
-      setSelectedCategory(item);
-    }
-  };
-
-  const onChildItemSelect = (item: Categories) => {
-    setSelectedCategory(item);
-  };
-
+const AboutScreen = () => {
+  const width = Dimensions.get("window").width;
+  const height = Dimensions.get("window").height;
   return (
-    <>
-      <CategoryItem
-        isSelected={selectedCategory?.value === ALL_CATEGORY.value}
-        onPress={() => onParentItemSelect(ALL_CATEGORY)}
-        item={ALL_CATEGORY}
-        isHeader
+    <Box flex={1} justifyContent="center" alignItems="center">
+      <Image
+        style={{
+          height: width / 4,
+          aspectRatio: 618 / 200,
+        }}
+        source={require("../../assets/images/yektanet.png")}
       />
-      {categories.map((item, index) => (
-        <Box key={item.value}>
-          <CategoryItem
-            isSelected={selectedCategory?.value === item.value && !item.sub}
-            onPress={() => onParentItemSelect(item)}
-            isOpen={openCategory?.value === item.value}
-            item={item}
-          />
-          {item.sub != null && item.value === openCategory?.value && (
-            <Box me={"s"}>
-              <Box>
-                <CategoryItem
-                  isHeader
-                  isSelected={selectedCategory?.value === item.value}
-                  onPress={() => onChildItemSelect(item)}
-                  item={item}
-                />
-              </Box>
-              {item.sub!.map((subItem) => (
-                <Box key={subItem.value}>
-                  <CategoryItem
-                    isSelected={selectedCategory?.value === subItem.value}
-                    onPress={() => onChildItemSelect(subItem)}
-                    item={subItem}
-                  />
-                </Box>
-              ))}
-            </Box>
-          )}
-        </Box>
-      ))}
-    </>
-  );
-}
-
-const CategoryItem: FC<{
-  item: Categories;
-  onPress: VoidFunction;
-  isSelected: boolean;
-
-  isHeader?: boolean;
-  isOpen?: boolean;
-}> = ({ item, onPress, isSelected, isHeader = false, isOpen = false }) => {
-  return (
-    <TouchableOpacity onPress={onPress} key={item.value}>
-      <Divider />
-      <Box
-        flexDirection="row"
-        height={40}
-        px="m"
-        mb="xs"
-        alignItems="center"
-        width={Dimensions.get("window").width}
+      <Text variant="header"></Text>
+      <Text variant="header3" numberOfLines={1} mx="m" adjustsFontSizeToFit>
+        سینا ابراهیمی - مصاحبه ی عملی یکتانت
+      </Text>
+      <Box height={32} />
+      <Text
+        color="textComment"
+        fontFamily="vazir_bold"
+        fontWeight="bold"
+        variant="subheader3"
       >
-        {isHeader ? (
-          <Box height={32} width={32}>
-            <MaterialIcons size={20} name="category" />
-          </Box>
-        ) : (
-          <Image
-            style={{
-              height: 32,
-              width: 32,
-            }}
-            source={{ uri: item.image }}
-          />
-        )}
-        <Box mx="xs" />
-        <Text variant="body" color={isSelected ? "activeTabLine" : "textColor"}>
-          {isHeader ? `همه ${item.title}` : item.title}
-        </Text>
-
-        {(isHeader || !item.sub?.length) && (
-          <Box position="absolute" right={18}>
-            <FontAwesome
-              name={isSelected ? "check-circle-o" : "circle-o"}
-              size={20}
-              color={isSelected ? "green" : "gray"}
-            />
-          </Box>
-        )}
-        {!isHeader && item.sub?.length && (
-          <Box position="absolute" right={18}>
-            <FontAwesome
-              name={isOpen ? "angle-down" : "angle-left"}
-              size={20}
-              color={isOpen ? "green" : "gray"}
-            />
-          </Box>
-        )}
-      </Box>
-    </TouchableOpacity>
+        موقعیت شغلی:
+      </Text>
+      <Text variant="subheader3">
+        Front-end Developer (React & React Native)
+      </Text>
+      <Box height={32} />
+      <Text color="textComment" variant="body">
+        مرداد 1400
+      </Text>
+      <Box height={72} />
+    </Box>
   );
 };
 
-const Divider = () => (
-  <Box
-    width={Dimensions.get("window").width - 32}
-    my={"xs"}
-    height={1}
-    backgroundColor="grayTransparent"
-  />
-);
+export default AboutScreen;

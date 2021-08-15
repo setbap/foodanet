@@ -1,5 +1,6 @@
 import { FilterStatus } from "@myutils/repo";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { LayoutAnimation } from "react-native";
 import { RootState } from "./store";
 
 const initialState: FilterStatus = {
@@ -15,6 +16,7 @@ export const filterStatusSlice = createSlice({
   initialState,
   reducers: {
     changeFilterItem: (state, action: PayloadAction<keyof FilterStatus>) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       state[action.payload] = !state[action.payload];
     },
     clearAllFilters: (state) => {

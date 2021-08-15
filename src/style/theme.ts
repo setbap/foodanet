@@ -1,9 +1,6 @@
 import { createTheme, useTheme } from "@shopify/restyle";
 
 const palette = {
-  purpleLight: "#8C6FF7",
-  purplePrimary: "#5A31F4",
-  purpleDark: "#3F22AB",
   pink: "#f30b70",
   greenLight: "#56DCBA",
   greenPrimary: "#0ECD9D",
@@ -24,7 +21,7 @@ export const theme = createTheme({
     transparent: palette.transparent,
     grayTransparent: palette.grayTransparent,
     amberTransparent: palette.amberTransparent,
-    activeTabLine: palette.amber,
+    activeTabLine: palette.greenPrimary,
     textColor: palette.black,
     textComment: palette.gray,
     discount: palette.pink,
@@ -45,29 +42,45 @@ export const theme = createTheme({
   textVariants: {
     header: {
       // fontFamily: "vazir_bold",
-      fontFamily: "vazir",
+      fontFamily: "vazir_bold",
       fontWeight: "bold",
       fontSize: 34,
       lineHeight: 42.5,
       color: "textColor",
     },
+    header2: {
+      // fontFamily: "vazir_bold",
+      fontFamily: "vazir_bold",
+      fontWeight: "bold",
+      fontSize: 28,
+      lineHeight: 42.5,
+      color: "textColor",
+    },
+    header3: {
+      // fontFamily: "vazir_bold",
+      fontFamily: "vazir_bold",
+      fontWeight: "bold",
+      fontSize: 26,
+      lineHeight: 42.5,
+      color: "textColor",
+    },
     subheader: {
       // fontFamily: "vazir-SemiBold",
-      fontFamily: "vazir",
+      fontFamily: "vazir_bold",
       fontWeight: "700",
       fontSize: 20,
       lineHeight: 36,
       color: "textColor",
     },
     subheader2: {
-      fontFamily: "vazir",
+      fontFamily: "vazir_bold",
       fontWeight: "500",
       fontSize: 18,
       lineHeight: 24,
       color: "textColor",
     },
     subheader3: {
-      fontFamily: "vazir",
+      fontFamily: "vazir_bold",
       fontWeight: "500",
       fontSize: 15,
       lineHeight: 20,

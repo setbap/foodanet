@@ -1,6 +1,7 @@
 import categoriesJson from "../../assets/data/categories.json";
 import restaurantsJson from "../../assets/data/data.json";
 import { Categories, Restaurants } from "@my-types/index";
+import { LayoutAnimation } from "react-native";
 
 export enum SortStatus {
   name,
@@ -44,7 +45,7 @@ export const getRestaurants = ({
   filterStatus,
   categoryValue,
 }: {
-  sortingStatus: SortStatus;
+  sortingStatus: SortStatus | null;
   filterStatus: FilterStatus;
   categoryValue: number;
 }): Restaurants[] => {

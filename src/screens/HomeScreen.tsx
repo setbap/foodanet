@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, UIManager, Platform } from "react-native";
 import { Box } from "@my-style/index";
 import { getRestaurants } from "@myutils/repo";
 import { RestaurantCard } from "@my-components/index";
@@ -62,6 +62,9 @@ export default function HomeScreen() {
         data={restaurants}
         keyExtractor={(item) => item.id + ""}
         renderItem={(item) => <RestaurantCard data={item.item} />}
+        contentContainerStyle={{
+          paddingBottom: 86,
+        }}
       />
     </Box>
   );

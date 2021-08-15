@@ -1,13 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 
-import { Dimensions, TouchableWithoutFeedback, Image } from "react-native";
-import {
-  BottomSheetFlatList,
-  BottomSheetModal,
-  BottomSheetScrollView,
-  BottomSheetView,
-  TouchableOpacity,
-} from "@gorhom/bottom-sheet";
+import { Dimensions, TouchableWithoutFeedback } from "react-native";
+import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { Box, Text } from "@my-style/index";
 import { getCategories } from "@myutils/repo";
 import { CategoryList } from "./CategoryList";
@@ -65,18 +59,14 @@ export const useCategoryBottomSheet = () => {
           <Box
             pt="s"
             ps="m"
+            mx="s"
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
           >
             <Text variant="subheader">دسته بندی ها</Text>
-            <TouchableOpacity>
-              <Text variant="body" color="activeTabLine">
-                حذف همه فیلتر
-              </Text>
-            </TouchableOpacity>
           </Box>
-          <Box mb="m" />
+          <Box mb="s" />
           <BottomSheetScrollView>
             <CategoryList />
           </BottomSheetScrollView>
